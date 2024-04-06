@@ -3,11 +3,11 @@ title: "R Notebook"
 output: html_notebook
 ---
 
-```{r}
+```{r, echo = FALSE}
 data <- read.csv("accidentes_transito_con_victimas_2016_2022.csv", sep = ";")
 ```
 
-```{r}
+```{r, echo = FALSE}
 #estfo aca
 ```
 
