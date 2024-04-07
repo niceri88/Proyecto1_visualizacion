@@ -1,5 +1,5 @@
 ---
-title: "R Notebook"
+title: "Accidentes de transito en CR entre 2016-2022"
 output: html_notebook
 ---
 
@@ -10,8 +10,7 @@ data <- read.csv("accidentes_transito_con_victimas_2016_2022.csv", sep = ";")
 ```{r, echo = FALSE}
 library(dplyr)
 library(ggplot2)
-
-#para las caras de chernoff
+library(plotly)
 ```
 
 ```{r, echo=FALSE}
@@ -50,11 +49,10 @@ registros_mas_frecuentes$Día <- gsub("[1-7]\\.", "", registros_mas_frecuentes$D
 ```
 
 ```{r, echo = FALSE}
-
 grafico_chernoff <- ggplot(registros_mas_frecuentes, aes(x = NumeroMes, y = idRuta,label1 = Mes,label2 = Ruta,label3 = Día)) +
   geom_point(size = 9,colour = registros_mas_frecuentes$ColorDia) +
   labs(x = "Mes",y = "Ruta") +
-  geom_text(aes(label = "👁️ 👁️"),vjust = -5, size = 3) +  # Agregamos ojos
+  geom_text(aes(label = "👁️ 👁️"),vjust = -5, size = 3)+  
   geom_text(aes(label = "👄"), vjust = 5, size = 2) +
   theme_bw()
 
@@ -64,9 +62,30 @@ grafico_interactivo <- ggplotly(grafico_chernoff,tooltip = c("label1", "label2",
 # Mostramos el gráfico interactivo
 grafico_interactivo
 
-
 # 12 caras por los meses, color cara dias ... y tamanho cara ruta
+```
 
+```{r,echo=FALSE}
+ruralUrbano_mas_accidentes<-data %>%
+  group_by(Rural.o.urbano)%>%
+  summarise(RUtotal_accidentes = n()) %>%
+  arrange(desc(RUtotal_accidentes))
+# desde 2016 hastas 2022
+```
 
+```{r,echo=FALSE}
+labels = ruralUrbano_mas_accidentes$Rural.o.urbano
+values = ruralUrbano_mas_accidentes$RUtotal_accidentes
+
+fig <- plot_ly(type='pie', labels=labels, values=values, 
+               textinfo='label+percent',
+               insidetextorientation='radial')
+fig <- fig %>% layout(title = 'Accidentes por ruta entre 2016-2022')
+
+fig
+```
+
+```{r,echo=FALSE}
 
 ```
+
