@@ -11,6 +11,7 @@ data <- read.csv("accidentes_transito_con_victimas_2016_2022.csv", sep = ";")
 library(dplyr)
 library(ggplot2)
 library(plotly)
+library(colorspace)
 ```
 
 ```{r, echo=FALSE}
@@ -97,16 +98,18 @@ region_canton_mas_accidentes<-region_canton_mas_accidentes%>%
   summarise(max_valor = max(RCtotal_accidentes),.groups = "drop")%>%
   arrange(max_valor)
 
-colores_base <- c("#FF0000", "#00FF00", "#0000FF")  # Ejemplo de colores base
+# Número de colores deseado
+n_colores <- 176
 
-# Generar una paleta de colores con 176 colores utilizando los colores base
-paleta_colores <- colorRampPalette(colores_base)(176)
+# Generar la paleta de colores
+
+paleta_colores <-rainbow_hcl(n_colores) # Ejemplo de colores base
 ```
 
 ```{r,echo=FALSE}
 
-fig <- plot_ly(region_canton_mas_accidentes, x = ~Región.Mideplan, y = ~max_valor, marker = list(color=paleta_colores) , type = 'bar', hoverinfo = 'text',
-               text = ~paste("Región: ", Región.Mideplan, "<br>Cantón: ", Cantón, "<br>Valor: ", max_valor))
+fig <- plot_ly(region_canton_mas_accidentes, x = ~Región.Mideplan, y = ~max_valor, marker = list(color=paleta_colores) , type = 'bar',hovertemplate = ~paste("Región: ", Región.Mideplan, "<br>Cantón: ", Cantón, "<br>Valor: ", max_valor,
+      "<extra></extra>"))
 
 fig <- fig %>% layout(yaxis = list(title = ''),xaxis=list(title = ''), barmode = 'stack')
 
