@@ -8,9 +8,14 @@ data <- read.csv("accidentes_transito_con_victimas_2016_2022.csv", sep = ";")
 ```
 
 ```{r, echo = FALSE}
-install.packages("aplpack")
-library(aplpack)
+#install.packages("aplpack")
+install.packages("shiny")
+library(shiny)
+#library(aplpack)
 library(dplyr)
+library(ggplot2)
+library(ggChernoff)
+
 #para las caras de chernoff
 ```
 
@@ -33,7 +38,7 @@ numero_mes <- as.integer(numero_mes)
 registros_mas_frecuentes <- cbind(registros_mas_frecuentes, NumeroMes = numero_mes)
 
 # Crear una columna para el número de día según el día de la semana en registros_mas_frecuentes
-registros_mas_frecuentes$NumeroDia <-ifelse(registros_mas_frecuentes$Día == "1.Domingo", "blue",
+registros_mas_frecuentes$ColorDia <-ifelse(registros_mas_frecuentes$Día == "1.Domingo", "blue",
                                             ifelse(registros_mas_frecuentes$Día == "2.Lunes", "red",
                                             ifelse(registros_mas_frecuentes$Día == "3.Martes", "yellow",
                                             ifelse(registros_mas_frecuentes$Día == "4.Miércoles", "cyan",
@@ -41,8 +46,11 @@ registros_mas_frecuentes$NumeroDia <-ifelse(registros_mas_frecuentes$Día == "1.
                                             ifelse(registros_mas_frecuentes$Día == "6.Viernes", "brown",
                                             ifelse(registros_mas_frecuentes$Día == "7.Sábado", "black", NA)))))))
 
+registros_mas_frecuentes$idRuta <-ifelse(registros_mas_frecuentes$Ruta == "Cantonal", 1)
+                                          
+registros_mas_frecuentes$Mes <- gsub("[A-L]\\.", "", registros_mas_frecuentes$Mes)
 
-
+registros_mas_frecuentes$Día <- gsub("[1-7]\\.", "", registros_mas_frecuentes$Día)
 print(registros_mas_frecuentes)
 
 ```
@@ -50,9 +58,25 @@ print(registros_mas_frecuentes)
 ```{r, echo = FALSE}
 
 
-grafico_meses <- faces(registros_mas_frecuentes[,5],col.hair = registros_mas_frecuentes$NumeroDia)
 
-# 12 caras por los meses, color pelo dias ... y color cara ruta
+grafico_chernoff <- ggplot(registros_mas_frecuentes, aes(x = NumeroMes, y = idRuta,label1 = Mes,label2 = Ruta,label3 = Día)) +
+  geom_point(size = 9,colour = registros_mas_frecuentes$ColorDia) +
+  labs(x = "Mes",y = "Ruta") +
+  geom_text(aes(label = "👁️ 👁️"),vjust = -5, size = 3) +  # Agregamos ojos
+  geom_text(aes(label = "👄"), vjust = 5, size = 2) +
+  theme_bw()
+
+# Convertimos el gráfico ggplot2 en uno interactivo con plotly
+grafico_interactivo <- ggplotly(grafico_chernoff,tooltip = c("label1", "label2", "label3"))
+
+
+# Mostramos el gráfico interactivo
+grafico_interactivo
+
+
+#grafico_meses <- faces(registros_mas_frecuentes[,5],face.type = #"chernoff",col.hair = registros_mas_frecuentes$ColorDia)
+
+# 12 caras por los meses, color pelo dias ... y tamanho cara ruta
 
 
 
