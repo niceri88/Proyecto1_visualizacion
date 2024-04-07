@@ -65,7 +65,7 @@ grafico_interactivo <- ggplotly(grafico_chernoff,tooltip = c("label1", "label2",
 grafico_interactivo
 
 
-# 12 caras por los meses, color pelo dias ... y tamanho cara ruta
+# 12 caras por los meses, color cara dias ... y tamanho cara ruta
 
 
 
