@@ -86,6 +86,28 @@ fig
 ```
 
 ```{r,echo=FALSE}
+#y =mideplan x= canton
+#tener canton con mas y menos accidentes
+region_canton_mas_accidentes<-data%>%
+  group_by(Región.Mideplan, Cantón)%>%
+  summarise(RCtotal_accidentes = n(),.groups = "drop")
 
+region_canton_mas_accidentes<-region_canton_mas_accidentes%>%
+  group_by(Región.Mideplan, Cantón)%>%
+  summarise(max_valor = max(RCtotal_accidentes),.groups = "drop")%>%
+  arrange(max_valor)
+
+colores_base <- c("#FF0000", "#00FF00", "#0000FF")  # Ejemplo de colores base
+
+# Generar una paleta de colores con 176 colores utilizando los colores base
+paleta_colores <- colorRampPalette(colores_base)(176)
+```
+
+```{r,echo=FALSE}
+fig <- plot_ly(region_canton_mas_accidentes, x = ~Región.Mideplan, y = ~max_valor, type = 'bar', name = region_canton_mas_accidentes$Cantón, marker = list(color=paleta_colores))
+
+fig <- fig %>% layout(yaxis = list(title = ''),xaxis=list(title = ''), barmode = 'group')
+
+fig
 ```
 
