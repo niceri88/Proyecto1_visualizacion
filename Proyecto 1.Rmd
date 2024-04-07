@@ -8,13 +8,8 @@ data <- read.csv("accidentes_transito_con_victimas_2016_2022.csv", sep = ";")
 ```
 
 ```{r, echo = FALSE}
-#install.packages("aplpack")
-install.packages("shiny")
-library(shiny)
-#library(aplpack)
 library(dplyr)
 library(ggplot2)
-library(ggChernoff)
 
 #para las caras de chernoff
 ```
@@ -51,13 +46,10 @@ registros_mas_frecuentes$idRuta <-ifelse(registros_mas_frecuentes$Ruta == "Canto
 registros_mas_frecuentes$Mes <- gsub("[A-L]\\.", "", registros_mas_frecuentes$Mes)
 
 registros_mas_frecuentes$Día <- gsub("[1-7]\\.", "", registros_mas_frecuentes$Día)
-print(registros_mas_frecuentes)
 
 ```
 
 ```{r, echo = FALSE}
-
-
 
 grafico_chernoff <- ggplot(registros_mas_frecuentes, aes(x = NumeroMes, y = idRuta,label1 = Mes,label2 = Ruta,label3 = Día)) +
   geom_point(size = 9,colour = registros_mas_frecuentes$ColorDia) +
@@ -69,12 +61,9 @@ grafico_chernoff <- ggplot(registros_mas_frecuentes, aes(x = NumeroMes, y = idRu
 # Convertimos el gráfico ggplot2 en uno interactivo con plotly
 grafico_interactivo <- ggplotly(grafico_chernoff,tooltip = c("label1", "label2", "label3"))
 
-
 # Mostramos el gráfico interactivo
 grafico_interactivo
 
-
-#grafico_meses <- faces(registros_mas_frecuentes[,5],face.type = #"chernoff",col.hair = registros_mas_frecuentes$ColorDia)
 
 # 12 caras por los meses, color pelo dias ... y tamanho cara ruta
 
