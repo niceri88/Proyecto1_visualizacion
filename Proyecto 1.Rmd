@@ -8,6 +8,52 @@ data <- read.csv("accidentes_transito_con_victimas_2016_2022.csv", sep = ";")
 ```
 
 ```{r, echo = FALSE}
-#estfo aca
+install.packages("aplpack")
+library(aplpack)
+library(dplyr)
+#para las caras de chernoff
 ```
 
+```{r, echo=FALSE}
+#obtenemos los meses, dias y la ruta donde
+#mas accidentes hay
+meses_dias_RU_mas_accidentes <- data %>%
+  filter(grepl("^[A-L]\\..*\\s(Enero|Febrero|Marzo|Abril|Mayo|Junio|Julio|Agosto|Setiembre|Octubre|Noviembre|Diciembre)$", Mes)) %>%
+  filter(grepl("^[1-7]\\.(Domingo|Lunes|Martes|Miércoles|Jueves|Viernes|Sábado)$", Día)) %>%
+  group_by(Mes,Día,Ruta) %>%
+  summarise(MDtotal_accidentes = n()) %>%
+  arrange(desc(MDtotal_accidentes))
+
+registros_mas_frecuentes <- meses_dias_RU_mas_accidentes %>%
+  group_by(Mes) %>%
+  slice(1)
+  
+numero_mes <- seq(1, 12, length.out = nrow(registros_mas_frecuentes))
+numero_mes <- as.integer(numero_mes)
+registros_mas_frecuentes <- cbind(registros_mas_frecuentes, NumeroMes = numero_mes)
+
+# Crear una columna para el número de día según el día de la semana en registros_mas_frecuentes
+registros_mas_frecuentes$NumeroDia <-ifelse(registros_mas_frecuentes$Día == "1.Domingo", "blue",
+                                            ifelse(registros_mas_frecuentes$Día == "2.Lunes", "red",
+                                            ifelse(registros_mas_frecuentes$Día == "3.Martes", "yellow",
+                                            ifelse(registros_mas_frecuentes$Día == "4.Miércoles", "cyan",
+                                            ifelse(registros_mas_frecuentes$Día == "5.Jueves", "darkgreen",
+                                            ifelse(registros_mas_frecuentes$Día == "6.Viernes", "brown",
+                                            ifelse(registros_mas_frecuentes$Día == "7.Sábado", "black", NA)))))))
+
+
+
+print(registros_mas_frecuentes)
+
+```
+
+```{r, echo = FALSE}
+
+
+grafico_meses <- faces(registros_mas_frecuentes[,5],col.hair = registros_mas_frecuentes$NumeroDia)
+
+# 12 caras por los meses, color pelo dias ... y color cara ruta
+
+
+
+```
