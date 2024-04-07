@@ -104,9 +104,11 @@ paleta_colores <- colorRampPalette(colores_base)(176)
 ```
 
 ```{r,echo=FALSE}
-fig <- plot_ly(region_canton_mas_accidentes, x = ~Región.Mideplan, y = ~max_valor, type = 'bar', name = region_canton_mas_accidentes$Cantón, marker = list(color=paleta_colores))
 
-fig <- fig %>% layout(yaxis = list(title = ''),xaxis=list(title = ''), barmode = 'group')
+fig <- plot_ly(region_canton_mas_accidentes, x = ~Región.Mideplan, y = ~max_valor, marker = list(color=paleta_colores) , type = 'bar', hoverinfo = 'text',
+               text = ~paste("Región: ", Región.Mideplan, "<br>Cantón: ", Cantón, "<br>Valor: ", max_valor))
+
+fig <- fig %>% layout(yaxis = list(title = ''),xaxis=list(title = ''), barmode = 'stack')
 
 fig
 ```
