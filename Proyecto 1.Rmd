@@ -116,3 +116,33 @@ fig <- fig %>% layout(yaxis = list(title = ''),xaxis=list(title = ''), barmode =
 fig
 ```
 
+```{r}
+anioCTG<-data %>%
+  group_by(Año,Tipo.de.circulación,Estado.del.tiempo,Clase.de.accidente) %>%
+  summarise(NumeroAccidentes=n(),.groups="drop")
+
+anioCTG<-anioCTG%>%
+  group_by(Año,Tipo.de.circulación,Estado.del.tiempo,Clase.de.accidente)%>%
+  summarise(Accidentes = min(NumeroAccidentes),.groups = "drop")%>%
+  arrange(Accidentes)
+anioCTG<-anioCTG%>%
+  rename(Circulacion = Tipo.de.circulación)%>%
+  rename(Clima = Estado.del.tiempo)%>%
+  rename(Gravedad = Clase.de.accidente)
+
+anioCTG$Año<-substr(anioCTG$Año, start = 3, stop = nchar(anioCTG$Año))
+#elimino el 20 del año para que sea mejor la respresentación textual
+#o sea en vez de 2016 sale 16
+```
+
+```{r,echo=FALSE}
+p <- ggplot(anioCTG, aes(x=Circulacion, y=Accidentes, color=Clima, group=Gravedad)) +
+    geom_point()+
+    labs(x="Tipo de circulación",y="Cantidad accidentes",colour=" Estado del clima")+
+  scale_y_continuous(limits = c(0, 2600), breaks = c(0, 2600))+
+  theme(axis.text.x = element_text(angle = -45, hjust = 0),axis.text.y = element_text(angle=12))+
+    facet_grid(Año ~ ., scale = "free_x",space = "free")
+    
+
+ggplotly(p)
+```
