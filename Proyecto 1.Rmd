@@ -136,7 +136,7 @@ anioCTG$Año<-substr(anioCTG$Año, start = 3, stop = nchar(anioCTG$Año))
 ```
 
 ```{r,echo=FALSE}
-p <- ggplot(anioCTG, aes(x=Circulacion, y=Accidentes, color=Clima, group=Gravedad)) +
+faceInteractivo <- ggplot(anioCTG, aes(x=Circulacion, y=Accidentes, color=Clima, group=Gravedad)) +
     geom_point()+
     labs(x="Tipo de circulación",y="Cantidad accidentes",colour=" Estado del clima")+
   scale_y_continuous(limits = c(0, 2600), breaks = c(0, 2600))+
@@ -144,5 +144,5 @@ p <- ggplot(anioCTG, aes(x=Circulacion, y=Accidentes, color=Clima, group=Graveda
     facet_grid(Año ~ ., scale = "free_x",space = "free")
     
 
-ggplotly(p)
+ggplotly(faceInteractivo)
 ```
