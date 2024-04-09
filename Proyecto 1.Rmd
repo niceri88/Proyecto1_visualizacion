@@ -180,7 +180,7 @@ barras_hora <- ggplot(data, aes(x = Hora.recodificada, fill = Hora.recodificada)
 ggplotly(barras_hora)
 ```
 
-```{r}
+```{r, echo = FALSE}
 barras_tipo_clase <- ggplot(data, aes(x = Tipo.de.accidente, fill = Clase.de.accidente)) +
   geom_bar() +
   labs(title = "Tipos de heridos por tipo de accidente",
