@@ -201,7 +201,7 @@ datos_multidimensionales$Día <- gsub("[1-7]\\.", "", datos_multidimensionales$D
 ```
 
 
-```{r}
+```{r,echo=FALSE}
 axis = list(showline=FALSE,
             zeroline=FALSE,
             gridcolor='#ffff',
