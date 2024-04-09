@@ -171,15 +171,6 @@ ggplotly(puntos_año)
 ```
 
 ```{r, echo = FALSE}
-# Calcular la cantidad de accidentes por rango horario de 6 horas
-frecuencia_hora_recodificada <- table(data$Hora.recodificada)
-
-# Crear un frame de datos con la frecuencia y el rango horario
-datos_frecuencia <- data.frame(
-  Hora = names(frecuencia_hora_recodificada),
-  Accidentes = as.numeric(frecuencia_hora_recodificada)
-)
-
 barras_hora <- ggplot(data, aes(x = Hora.recodificada, fill = Hora.recodificada)) +
   geom_bar() +
   labs(title = "Accidentes por Hora recodificada (rango de 6 horas)",
@@ -189,3 +180,12 @@ barras_hora <- ggplot(data, aes(x = Hora.recodificada, fill = Hora.recodificada)
 ggplotly(barras_hora)
 ```
 
+```{r}
+barras_tipo_clase <- ggplot(data, aes(x = Tipo.de.accidente, fill = Clase.de.accidente)) +
+  geom_bar() +
+  labs(title = "Tipos de heridos por tipo de accidente",
+       x = "Tipo de accidente", y = "# de accidentes", fill = "Tipo de heridos") +
+  theme(axis.text.x = element_text(angle = 315, hjust = 0))
+
+ggplotly(barras_tipo_clase)
+```
