@@ -7,7 +7,7 @@ output: html_notebook
 data <- read.csv("accidentes_transito_con_victimas_2016_2022.csv", sep = ";")
 ```
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, warning = FALSE}
 library(dplyr)
 library(ggplot2)
 library(plotly)
@@ -15,7 +15,7 @@ library(colorspace)
 library(treemapify)
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, message = FALSE}
 #obtenemos los meses, dias y la ruta donde
 #mas accidentes hay
 meses_dias_RU_mas_accidentes <- data %>%
@@ -79,12 +79,11 @@ ruralUrbano_mas_accidentes<-data %>%
 labels = ruralUrbano_mas_accidentes$Rural.o.urbano
 values = ruralUrbano_mas_accidentes$RUtotal_accidentes
 
-fig <- plot_ly(type='pie', labels=labels, values=values, 
+fig1 <- plot_ly(type='pie', labels=labels, values=values, 
                textinfo='label+percent',
                insidetextorientation='radial')
-fig <- fig %>% layout(title = 'Accidentes por ruta entre 2016-2022')
+fig1 <- fig1 %>% layout(title = 'Accidentes por ruta entre 2016-2022')
 
-fig
 ```
 
 ```{r,echo=FALSE}
@@ -167,23 +166,23 @@ puntos_año <- ggplot(datos_frecuencia_año, aes(x = Año, y = Accidentes, color
   theme(axis.title.x = element_blank(),
         axis.text.x = element_blank())
 
-ggplotly(puntos_año)
+puntos_años_interactiva <- ggplotly(puntos_año)
 ```
 
 ```{r, echo = FALSE}
 barras_hora <- ggplot(data, aes(x = Hora.recodificada, fill = Hora.recodificada)) +
   geom_bar() +
-  labs(title = "Accidentes por Hora recodificada (rango de 6 horas)",
-       x = "Hora Recodificada", y = "# de accidentes", fill = "Rango horario") +
+  labs(title = "Accidentes por año y por Hora recodificada",
+       x = "Hora Recodificada", y = "# de accidentes", fill = "Año / Rango horario") +
   theme(axis.text.x = element_blank())
 
-ggplotly(barras_hora)
+barras_hora_interactiva <- ggplotly(barras_hora)
 ```
 
 ```{r, echo = FALSE}
 barras_tipo_clase <- ggplot(data, aes(x = Tipo.de.accidente, fill = Clase.de.accidente)) +
   geom_bar() +
-  labs(title = "Tipos de heridos por tipo de accidente",
+  labs(title = "Tipos de heridos por tipo de accidente entre 2016-2022",
        x = "Tipo de accidente", y = "# de accidentes", fill = "Tipo de heridos") +
   theme(axis.text.x = element_text(angle = 315, hjust = 0))
 
@@ -254,3 +253,8 @@ matrizD
 
 ```
 
+```{r}
+grafica_de_graficas <- subplot(puntos_años_interactiva, barras_hora_interactiva, nrows = 2)
+
+grafica_de_graficas
+```
