@@ -15,7 +15,7 @@ library(colorspace)
 library(treemapify)
 ```
 
-```{r, echo=FALSE, warning = FALSE}
+```{r, echo=FALSE, message = FALSE}
 #obtenemos los meses, dias y la ruta donde
 #mas accidentes hay
 meses_dias_RU_mas_accidentes <- data %>%
