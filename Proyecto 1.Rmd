@@ -7,7 +7,7 @@ output: html_notebook
 data <- read.csv("accidentes_transito_con_victimas_2016_2022.csv", sep = ";")
 ```
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, warning = FALSE}
 library(dplyr)
 library(ggplot2)
 library(plotly)
@@ -15,7 +15,7 @@ library(colorspace)
 library(treemapify)
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning = FALSE}
 #obtenemos los meses, dias y la ruta donde
 #mas accidentes hay
 meses_dias_RU_mas_accidentes <- data %>%
@@ -117,7 +117,7 @@ fig <- fig %>% layout(yaxis = list(title = ''),xaxis=list(title = ''), barmode =
 fig
 ```
 
-```{r}
+```{r, echo = FALSE}
 anioCTG<-data %>%
   group_by(Año,Tipo.de.circulación,Estado.del.tiempo,Clase.de.accidente) %>%
   summarise(NumeroAccidentes=n(),.groups="drop")
