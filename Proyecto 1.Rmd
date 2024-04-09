@@ -116,7 +116,7 @@ fig <- fig %>% layout(yaxis = list(title = ''),xaxis=list(title = ''), barmode =
 fig
 ```
 
-```{r}
+```{r, echo = FALSE}
 anioCTG<-data %>%
   group_by(Año,Tipo.de.circulación,Estado.del.tiempo,Clase.de.accidente) %>%
   summarise(NumeroAccidentes=n(),.groups="drop")
@@ -253,7 +253,7 @@ matrizD
 
 ```
 
-```{r}
+```{r, echo = FALSE}
 grafica_de_graficas <- subplot(puntos_años_interactiva, barras_hora_interactiva, nrows = 2)
 
 grafica_de_graficas
