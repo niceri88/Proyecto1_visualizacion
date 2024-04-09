@@ -7,7 +7,7 @@ output: html_notebook
 data <- read.csv("accidentes_transito_con_victimas_2016_2022.csv", sep = ";")
 ```
 
-```{r, echo = FALSE, warning = FALSE}
+```{r, echo = FALSE}
 library(dplyr)
 library(ggplot2)
 library(plotly)
@@ -15,7 +15,7 @@ library(colorspace)
 library(treemapify)
 ```
 
-```{r, echo=FALSE, message = FALSE}
+```{r, echo=FALSE}
 #obtenemos los meses, dias y la ruta donde
 #mas accidentes hay
 meses_dias_RU_mas_accidentes <- data %>%
@@ -117,7 +117,7 @@ fig <- fig %>% layout(yaxis = list(title = ''),xaxis=list(title = ''), barmode =
 fig
 ```
 
-```{r, echo = FALSE}
+```{r}
 anioCTG<-data %>%
   group_by(Año,Tipo.de.circulación,Estado.del.tiempo,Clase.de.accidente) %>%
   summarise(NumeroAccidentes=n(),.groups="drop")
@@ -189,3 +189,68 @@ barras_tipo_clase <- ggplot(data, aes(x = Tipo.de.accidente, fill = Clase.de.acc
 
 ggplotly(barras_tipo_clase)
 ```
+
+```{r,echo=FALSE}
+datos_multidimensionales<-data%>%
+  filter(grepl("^[1-7]\\.(Domingo|Lunes|Martes|Miércoles|Jueves|Viernes|Sábado)$", Día)) %>%
+  group_by(Hora.recodificada,Día,Estado.del.tiempo,Tipo.de.calzada,Tipo.de.circulación)%>%
+  summarise(accidentes=n(),.groups = "drop")
+
+datos_multidimensionales$Día <- gsub("[1-7]\\.", "", datos_multidimensionales$Día)
+  
+```
+
+
+```{r,echo=FALSE}
+axis = list(showline=FALSE,
+            zeroline=FALSE,
+            gridcolor='#ffff',
+            ticklen=1)
+
+matrizD <- datos_multidimensionales %>%
+  plot_ly() 
+matrizD <- matrizD %>%
+  add_trace(
+    type = 'splom',
+    dimensions = list(
+      list(label='Día',values=~Día),
+      list(label='Tránsito',values=~Tipo.de.circulación),
+      list(label='Hora',values=~Hora.recodificada),
+      list(label='Vía',values=~Tipo.de.calzada),
+      list(label='Clima',values=~Estado.del.tiempo)
+    )
+  )
+matrizD <- matrizD %>%
+  layout(
+    title= 'Accidentes del 2016-2022 evaluando distintos factores',
+    hovermode='closest',
+    dragmode= 'select',
+    plot_bgcolor='rgba(240,240,240, 0.95)',
+    xaxis=list(domain=NULL, showline=F, zeroline=F, gridcolor='#ffff', ticklen=4),
+    yaxis=list(domain=NULL, showline=F, zeroline=F, gridcolor='#ffff', ticklen=4),
+    xaxis2=axis,
+    xaxis3=axis,
+    xaxis4=axis,
+    yaxis2=axis,
+    yaxis3=axis,
+    yaxis4=axis
+  )
+
+matrizD <- matrizD %>%
+  layout(
+  xaxis = list(tickvals = NULL, ticktext = NULL),
+  xaxis2 = list(tickvals = NULL, ticktext = NULL),
+  xaxis3 = list(tickvals = NULL, ticktext = NULL),
+  xaxis4 = list(tickvals = NULL, ticktext = NULL),
+  xaxis5 = list(tickvals = NULL, ticktext = NULL),
+  yaxis = list(tickvals = NULL, ticktext = NULL),
+  yaxis2 = list(tickvals = NULL, ticktext = NULL),
+  yaxis3 = list(tickvals = NULL, ticktext = NULL),
+  yaxis4 = list(tickvals = NULL, ticktext = NULL),
+  yaxis5 = list(tickvals = NULL, ticktext = NULL)
+)
+matrizD
+
+
+```
+
