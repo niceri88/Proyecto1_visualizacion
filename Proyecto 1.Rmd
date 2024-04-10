@@ -7,7 +7,7 @@ output: html_notebook
 data <- read.csv("accidentes_transito_con_victimas_2016_2022.csv", sep = ";")
 ```
 
-```{r, echo = FALSE, warning = FALSE}
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
 library(dplyr)
 library(ggplot2)
 library(plotly)
