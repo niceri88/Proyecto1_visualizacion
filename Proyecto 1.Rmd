@@ -115,7 +115,7 @@ fig <- fig %>% layout(yaxis = list(title = ''),xaxis=list(title = ''), barmode =
 
 fig
 ```
-
+Entre 2016-2022, la gráfica apilada de barras muestra que las barras están agrupadas por región y apiladas por cantones con mayor número de accidentes. El color indica cuántos accidentes hubieron en cada cantón. En la zona de Costa Rica, donde más accidentes ocurrieron, la región central y el cantón de San José tienen el mayor número de accidentes. Además, los cantones que comparten más accidentes son los más desarrollados urbanamente, mientras que los cantones con menos accidentes son los más pobres o menos desarrollados. Esto se podría deber a que hay menos vehículos en carretera, por la falta de poder adquisitivo.
 ```{r, echo = FALSE}
 anioCTG<-data %>%
   group_by(Año,Tipo.de.circulación,Estado.del.tiempo,Clase.de.accidente) %>%
