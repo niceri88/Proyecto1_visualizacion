@@ -252,7 +252,7 @@ matrizD
 
 
 ```
-
+Esta matriz de disperción multivariada evalúa las condiciones climáticas, el tipo de vía, el tiempo registrado, el tipo de tránsito y el día con más accidentes en Costa Rica del 2016 al 2022. Como muestra la matriz, el número de accidentes no solo en un año, sino en varios años. Depende del lugar por donde conduzcas, si hay prohibiciones de circulación, del tipo de tráfico o de la naturaleza de la carretera. Esto significa que estos tres factores, que varían de un año a otro, no cambian. Además, el día, las condiciones de la carretera y el clima muestran un patrón de accidentes debido a los días ocupados, lo que puede hacer que la conducción en ciertos tipos de vías sea más difícil y peor debido a las condiciones climáticas. Por último, el patrón entre día, carretera y hora puede ser muy similar al anterior, pero puede variar en función de si es hora punta o un indicio de que el conductor no se encuentra en óptimas condiciones de conducción. . Curiosamente, el tráfico, las condiciones meteorológicas y las carreteras son claramente inestables, como se esperaba.
 ```{r, echo = FALSE}
 grafica_de_graficas <- subplot(puntos_años_interactiva, barras_hora_interactiva, nrows = 2)
 
