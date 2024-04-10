@@ -146,7 +146,7 @@ faceInteractivo <- ggplot(anioCTG, aes(x=Circulacion, y=Accidentes, color=Clima,
 
 ggplotly(faceInteractivo)
 ```
-
+Esta gráfica muestra el mínimo de accidentes por año, tipo de circulación, estado del clima y son agrupados por la gravedad del accidente. La mayoría de los accidentes curiosamente se dan con buen tiempo, contrariamente a lo que se esperaría que sea más bien en un mal clima como la lluvia. Esto quiere decir que si hay un buen clima los conductores se relajan y no andan lo suficientemente atentos al ambiente. Esto tiene un efecto inmediato con el tipo de circulación, ya que al no tomar la suficiente precaución se terminan accidentando, y estos en su mayoría son de extrema gravedad.
 ```{r, echo = FALSE}
 # Calcular la cantidad de accidentes por año
 frecuencia_año <- table(data$Año)
