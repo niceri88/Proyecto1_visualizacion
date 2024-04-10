@@ -66,7 +66,9 @@ grafico_interactivo
 
 # 12 caras por los meses, color cara dias ... y tamanho cara ruta
 ```
+
 En esta gráfica de accidentes entre el 2016-2022 de caras de Chernoff podemos observar en un inicio que hay 12 caras, una por cada mes del año. Segundo hay variedad de colores, los cuales representan el día con más accidentes de ese mes. Y por último todas las caras tiene el mismo tamaño, ya que el tamaño lo determina la ruta con más accidentes. Teniendo esto en cuenta, porque tiene el mismo tamaño todas las caras? Pues los datos de análisis indican que a través del intervalo de años entre el 2016-2022 las rutas con más accidentes han sido las cantonales. Es muy interesante que en ese intervalo de años el día que suele tener más accidentes es el viernes, además el Lunes y Sábado sueles tener la misma cantidad de accidentes.
+
 ```{r,echo=FALSE}
 ruralUrbano_mas_accidentes<-data %>%
   group_by(Rural.o.urbano)%>%
@@ -85,7 +87,9 @@ fig1 <- plot_ly(type='pie', labels=labels, values=values,
 fig1 <- fig1 %>% layout(title = 'Accidentes por ruta entre 2016-2022')
 fig1
 ```
-En este gráfico de paste se muestra el porcentaje de los accidentes entre el 2016-2022 por tipo de ruta. Se puede apreciar que el mayor porcentaje de accidentes en el intervalo de años se ha dado en rutas urbana, eso quizá tenga que ver en parte porque hay menos tránsito en rutas rurales. Con lo anterior en cuenta, también puede ser que porque hay menos cantidad de tránsito hayan menos factores psicoemocionales que afecten al momento de conducir.
+
+En este gráfico de pastel se muestra el porcentaje de los accidentes entre el 2016-2022 por tipo de ruta. Se puede apreciar que el mayor porcentaje de accidentes en el intervalo de años se ha dado en rutas urbana, eso quizá tenga que ver en parte porque hay menos tránsito en rutas rurales. Con lo anterior en cuenta, también puede ser que porque hay menos cantidad de tránsito hayan menos factores psicoemocionales que afecten al momento de conducir.
+
 ```{r,echo=FALSE}
 #y =mideplan x= canton
 #tener canton con mas y menos accidentes
@@ -115,7 +119,9 @@ fig <- fig %>% layout(yaxis = list(title = ''),xaxis=list(title = ''), barmode =
 
 fig
 ```
+
 Entre 2016-2022, la gráfica apilada de barras muestra que las barras están agrupadas por región y apiladas por cantones con mayor número de accidentes. El color indica cuántos accidentes hubieron en cada cantón. En la zona de Costa Rica, donde más accidentes ocurrieron, la región central y el cantón de San José tienen el mayor número de accidentes. Además, los cantones que comparten más accidentes son los más desarrollados urbanamente, mientras que los cantones con menos accidentes son los más pobres o menos desarrollados. Esto se podría deber a que hay menos vehículos en carretera, por la falta de poder adquisitivo.
+
 ```{r, echo = FALSE}
 anioCTG<-data %>%
   group_by(Año,Tipo.de.circulación,Estado.del.tiempo,Clase.de.accidente) %>%
@@ -146,7 +152,9 @@ faceInteractivo <- ggplot(anioCTG, aes(x=Circulacion, y=Accidentes, color=Clima,
 
 ggplotly(faceInteractivo)
 ```
+
 Esta gráfica muestra el mínimo de accidentes por año, tipo de circulación, estado del clima y son agrupados por la gravedad del accidente. La mayoría de los accidentes curiosamente se dan con buen tiempo, contrariamente a lo que se esperaría que sea más bien en un mal clima como la lluvia. Esto quiere decir que si hay un buen clima los conductores se relajan y no andan lo suficientemente atentos al ambiente. Esto tiene un efecto inmediato con el tipo de circulación, ya que al no tomar la suficiente precaución se terminan accidentando, y estos en su mayoría son de extrema gravedad.
+
 ```{r, echo = FALSE}
 # Calcular la cantidad de accidentes por año
 frecuencia_año <- table(data$Año)
@@ -252,7 +260,9 @@ matrizD
 
 
 ```
+
 Esta matriz de disperción multivariada evalúa las condiciones climáticas, el tipo de vía, el tiempo registrado, el tipo de tránsito y el día con más accidentes en Costa Rica del 2016 al 2022. Como muestra la matriz, el número de accidentes no solo en un año, sino en varios años. Depende del lugar por donde conduzcas, si hay prohibiciones de circulación, del tipo de tráfico o de la naturaleza de la carretera. Esto significa que estos tres factores, que varían de un año a otro, no cambian. Además, el día, las condiciones de la carretera y el clima muestran un patrón de accidentes debido a los días ocupados, lo que puede hacer que la conducción en ciertos tipos de vías sea más difícil y peor debido a las condiciones climáticas. Por último, el patrón entre día, carretera y hora puede ser muy similar al anterior, pero puede variar en función de si es hora punta o un indicio de que el conductor no se encuentra en óptimas condiciones de conducción. . Curiosamente, el tráfico, las condiciones meteorológicas y las carreteras son claramente inestables, como se esperaba.
+
 ```{r, echo = FALSE}
 grafica_de_graficas <- subplot(puntos_años_interactiva, barras_hora_interactiva, nrows = 2)
 
