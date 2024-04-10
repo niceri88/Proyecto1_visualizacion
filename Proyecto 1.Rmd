@@ -83,9 +83,9 @@ fig1 <- plot_ly(type='pie', labels=labels, values=values,
                textinfo='label+percent',
                insidetextorientation='radial')
 fig1 <- fig1 %>% layout(title = 'Accidentes por ruta entre 2016-2022')
-
+fig1
 ```
-
+En este gráfico de paste se muestra el porcentaje de los accidentes entre el 2016-2022 por tipo de ruta. Se puede apreciar que el mayor porcentaje de accidentes en el intervalo de años se ha dado en rutas urbana, eso quizá tenga que ver en parte porque hay menos tránsito en rutas rurales. Con lo anterior en cuenta, también puede ser que porque hay menos cantidad de tránsito hayan menos factores psicoemocionales que afecten al momento de conducir.
 ```{r,echo=FALSE}
 #y =mideplan x= canton
 #tener canton con mas y menos accidentes
