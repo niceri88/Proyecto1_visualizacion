@@ -197,6 +197,9 @@ barras_tipo_clase <- ggplot(data, aes(x = Tipo.de.accidente, fill = Clase.de.acc
 ggplotly(barras_tipo_clase)
 ```
 
+En esta grafica de barras apiladas podemos ver los heridos en accidentes de tránsito que se presentaron entre 2016-2022. gracias a esta grafica podemos conceptualizar de una mejor manera la razón por la cual las autoridades son insistentes con respecto al cuidado que se tiene que tener al conducir una motocicleta ya que como se puede observar son los accidentes con mayor cantidad de heridos leves y con la mayor cantidad de heridos graves o muertos, que si bien es cierto no todos los heridos son motociclistas pueden ser una gran mayoría de los heridos graves, además, de que hay incluso más muertes que los atropellos directos hacia personas.
+Asimismo, podemos ver que son pocos los accidentes de los cuales no se sabe que los causó.
+
 ```{r,echo=FALSE}
 datos_multidimensionales<-data%>%
   filter(grepl("^[1-7]\\.(Domingo|Lunes|Martes|Miércoles|Jueves|Viernes|Sábado)$", Día)) %>%
@@ -268,3 +271,7 @@ grafica_de_graficas <- subplot(puntos_años_interactiva, barras_hora_interactiva
 
 grafica_de_graficas
 ```
+
+Esta grafica compuesta nos muestra, en los puntos, los datos segmentados por años y, en la de barras, podemos ver los rangos horarios entre 2016-2022 que presentaron más accidentes.
+En la de puntos podemos ver como el año 2016 fue el año que tuvo mayor incidencia, además, un detalle que se puede rescatar es que en el año 2020 los accidentes tuvieron una menor presencia en nuestro país, que pudo haber sido debido a las restricciones vehiculares que las autoridades pusieron durante el periodo de pandemia y al haber menos vehículos ocurrieron menos accidentes.
+En la de barras se puede apreciar como los horarios entre las 12:00 y las 17:59 horas son los que mayor incidencia presentan posiblemente debido a que es el horario en el que la mayoría de las personas salen de trabajar y esto incrementa el tráfico. Asimismo, podemos ver como la madruga presenta una cantidad mucho menor de accidentes posiblemente debido a que existe un tráfico menor durante esas horas.
