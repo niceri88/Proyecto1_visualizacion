@@ -1,6 +1,8 @@
 ---
 title: "Accidentes de transito en CR entre 2016-2022"
-output: html_notebook
+output:
+  html_document:
+    df_print: paged
 ---
 
 ```{r, echo = FALSE}
